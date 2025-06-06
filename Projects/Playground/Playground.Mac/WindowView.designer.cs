@@ -1,7 +1,8 @@
-// WARNING
+﻿// WARNING
 //
-// This file has been generated automatically by Visual Studio to store outlets and
-// actions made in the UI designer. If it is removed, they will be lost.
+// This file has been generated automatically by Rider IDE
+//   to store outlets and actions made in Xcode.
+// If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
@@ -14,13 +15,36 @@ namespace Playground.Mac
 	{
 		[Outlet]
 		AppKit.NSButton btnClose { get; set; }
-		
-		void ReleaseDesignerOutlets ()
+
+		[Outlet]
+		AppKit.NSButton gcButton { get; set; }
+
+		[Outlet]
+		AppKit.NSButton testButton { get; set; }
+
+		[Action ("TestButtonAction:")]
+		partial void TestButtonAction (Foundation.NSObject sender);
+
+        [Action ("GCAction:")]
+        partial void GCAction (Foundation.NSObject sender);
+
+        void ReleaseDesignerOutlets ()
 		{
 			if (btnClose != null) {
 				btnClose.Dispose ();
 				btnClose = null;
 			}
+
+			if (testButton != null) {
+				testButton.Dispose ();
+				testButton = null;
+			}
+
+			if (gcButton != null) {
+				gcButton.Dispose ();
+				gcButton = null;
+			}
+
 		}
 	}
 }

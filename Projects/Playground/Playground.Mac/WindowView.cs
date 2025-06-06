@@ -5,6 +5,7 @@ using MvvmCross.Platforms.Mac.Presenters.Attributes;
 using MvvmCross.Platforms.Mac.Views;
 using ObjCRuntime;
 using Playground.Core.ViewModels;
+using AppKit;
 
 namespace Playground.Mac
 {
@@ -37,14 +38,47 @@ namespace Playground.Mac
 
             //WindowController.MenuItemSetting.State = ViewModel.IsItemSetting ? NSCellStateValue.On : NSCellStateValue.Off;
 
+            //var WindowController = (ToolbarWindow)View.Window.WindowController;
+            
             var set = CreateBindingSet();
             set.Bind(WindowController.TextTitle).For(v => v.StringValue).To(vm => vm.Title);
             //set.Bind(WindowController.PopupModes).To(vm => vm.Mode);
             set.Bind(WindowController.MenuItemSetting).To(vm => vm.ToggleSettingCommand);
             set.Bind(WindowController.MenuItemSetting).For(v => v.State).To(vm => vm.IsItemSetting).OneWay();
             set.Apply();
+        }
 
-            GC.Collect();       // test to make sure WindowController does not get removed prematurely
+        partial void GCAction(NSObject sender)
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+        }
+
+        partial void TestButtonAction(NSObject sender)
+        {
+            // GC.Collect();       // test to make sure WindowController does not get removed prematurely
+            // GC.WaitForPendingFinalizers();
+            // GC.Collect();
+            
+            //var controller123 = (ToolbarWindow)View.Window.WindowController;
+            var controller123 = WindowController;
+            var controllerIsNotNull = controller123 is not null;
+            var outletIsNotNull = controller123?.MenuItem2 is not null;
+            var msg = $"""
+                       Testing window controller:
+                       WindowController is not null: {controllerIsNotNull}, {(controllerIsNotNull ? "ok" : "not ok")}
+                       Controller creation count: {ToolbarWindow._count}, {(ToolbarWindow._count is 1 ? "ok" : "not ok")}
+                       Controller outlets is not null: {outletIsNotNull}, {(outletIsNotNull ? "ok" : "not ok")}
+                       """;
+            
+            using var alert = new NSAlert();
+            alert.MessageText = msg;
+            alert.AlertStyle = NSAlertStyle.Informational;
+            alert.RunModal();
+            
+            //btn.Title = "Clicked";
         }
     }
 }

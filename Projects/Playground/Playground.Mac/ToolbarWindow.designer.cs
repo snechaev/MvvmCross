@@ -1,7 +1,8 @@
-// WARNING
+﻿// WARNING
 //
-// This file has been generated automatically by Visual Studio to store outlets and
-// actions made in the UI designer. If it is removed, they will be lost.
+// This file has been generated automatically by Rider IDE
+//   to store outlets and actions made in Xcode.
+// If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
@@ -28,13 +29,21 @@ namespace Playground.Mac
 		AppKit.NSPopUpButton popupModes { get; set; }
 
 		[Outlet]
+		AppKit.NSToolbarItem testButton { get; set; }
+
+		[Outlet]
 		AppKit.NSTextField textTitle { get; set; }
 
 		[Action ("ToggleSetting:")]
 		partial void ToggleSetting (Foundation.NSObject sender);
-		
+
 		void ReleaseDesignerOutlets ()
 		{
+			if (testButton != null) {
+				testButton.Dispose ();
+				testButton = null;
+			}
+
 			if (menuItem1 != null) {
 				menuItem1.Dispose ();
 				menuItem1 = null;
@@ -55,15 +64,16 @@ namespace Playground.Mac
 				menuItemSetting = null;
 			}
 
+			if (popupModes != null) {
+				popupModes.Dispose ();
+				popupModes = null;
+			}
+
 			if (textTitle != null) {
 				textTitle.Dispose ();
 				textTitle = null;
 			}
 
-			if (popupModes != null) {
-				popupModes.Dispose ();
-				popupModes = null;
-			}
 		}
 	}
 }

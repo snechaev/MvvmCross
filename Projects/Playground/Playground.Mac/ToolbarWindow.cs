@@ -10,7 +10,7 @@ namespace Playground.Mac
     [MvxFromStoryboard("Main")]
     public partial class ToolbarWindow : MvxWindowController
     {
-        private static int _count;
+        public static int _count;
 
         public ToolbarWindow(NativeHandle handle) : base(handle)
         {
@@ -28,5 +28,7 @@ namespace Playground.Mac
         public NSMenuItem MenuItemSetting => menuItemSetting;
 
         public NSPopUpButton PopupModes => popupModes;
+
+        public NSToolbarItem TestButton => testButton;
     }
 }
